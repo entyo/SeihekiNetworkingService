@@ -1,30 +1,17 @@
 // web.go
 package main
 
-import (
-	"flag"
-	"fmt"
-	"log"
-	"net/http"
-	"strconv"
-)
+import "github.com/gin-gonic/gin"
+import "net/http"
 
 func main() {
-	// Parse flags
-	var portNum = flag.Int("port", 8080, "The numboer of port which is used of by this server.")
-	flag.Parse()
-	port := strconv.Itoa(*portNum)
-
-	http.HandleFunc("/", hello)
-	fmt.Printf("Listening at :%d\n", *portNum)
-
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintln(res, "hello, world")
-	log.Println("served")
+	router := gin.Default()
+	router.Static("/assets", "./assets")
+	router.LoadHTMLGlob("view/*")
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title": "Share adult contents you love!",
+		})
+	})
+	router.Run(":8080")
 }
