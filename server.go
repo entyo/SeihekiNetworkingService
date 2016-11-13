@@ -3,6 +3,7 @@ package main
 
 import "github.com/gin-gonic/gin"
 import "net/http"
+import "os"
 
 func main() {
 	router := gin.Default()
@@ -13,5 +14,5 @@ func main() {
 			"title": "Share adult contents you love!",
 		})
 	})
-	router.Run(":8080")
+	router.Run(":" + os.Getenv("PORT"))
 }
