@@ -14,5 +14,9 @@ func main() {
 			"title": "Share adult contents you love!",
 		})
 	})
-	router.Run(":" + os.Getenv("PORT"))
+	if os.Getenv("PORT") == "" {
+		router.Run(":" + "8080")
+	} else {
+		router.Run(":" + os.Getenv("PORT"))
+	}
 }
