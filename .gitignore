@@ -1,2 +1,4 @@
-fullchain.pem
-privkey.pem
+*
+!*.*
+!*/
+*.pem
